@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+  const obj = {
+    name: 'yang tian tian'
+  }
+    const name = 'li bing yang'
+    const element1 = <h1>{name}</h1>
+    const formatName = () => {
+      return 'li bing yang' + 'yang tian tian'
+    }
+    const element2 = <h1>{formatName()}</h1> // 表达式为函数
+    const element3 = <h1>{obj.name}</h1> // 表达式为对象调用
+    ReactDOM.render(
+      element3,
+      document.getElementById('root')
+    );
+
+  </script>
+</body>
+
+</html>
