@@ -13,20 +13,75 @@
   <div id="root"></div>
   <script type="text/babel">
   const obj = {
-    name: 'yang tian tian'
+    name: 'yang tian tian',
+    img: 'https://www.baidu.com/img/PCpad_012830ebaa7e4379ce9a9ed1b71f7507.png'
   }
     const name = 'li bing yang'
-    const element1 = <h1>{name}</h1>
     const formatName = () => {
       return 'li bing yang' + 'yang tian tian'
     }
+    const element1 = <h1>{name}</h1>
     const element2 = <h1>{formatName()}</h1> // 表达式为函数
     const element3 = <h1>{obj.name}</h1> // 表达式为对象调用
+    const element4 = <img src= { obj.img }/>
     ReactDOM.render(
       element3,
       document.getElementById('root')
     );
 
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+  // function Clock(props) {
+  //   return (
+  //     <div>
+  //       <h1>Hello</h1>
+  //       <h2>It is {props.date.toLocaleTimeString()}</h2>
+  //     </div>
+  //   )
+  // }
+
+  // function tick() {
+  //   ReactDOM.render(
+  //     <Clock date={new Date()} />,
+  //     document.getElementById('root')
+  //   )
+  // }
+  // setInterval(() => {
+  //   tick()
+  // }, 1000)
+
+  class Clock extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state  = { date: new Date() }
+    }
+
+    componentDidMount() {
+      // 组件渲染物完成
+      this.timerID = setInterval(() => this.tick(),1000)
+    }
+    componentWillUnmount() {
+      // 组件卸载完成
+      clearInterval(this.timerID)
+    }
+    tick() {
+      this.setState({
+        date: new Date()
+      })
+    }
+    render() {
+      return (
+        <div>
+          <h1>Hello</h1>
+          <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+        </div>
+      )
+    }
+  }
+  ReactDOM.render(
+    <Clock />,
+    document.getElementById('root')
+  )
   </script>
 </body>
 
