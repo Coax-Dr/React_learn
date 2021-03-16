@@ -15,7 +15,7 @@ const element1 = (
 
 const element2 = React.createElement(
     'h1',
-    {className: 'a'},
+    { className: 'a' },
     'XXX'
 )
 
@@ -25,7 +25,7 @@ const element2 = React.createElement(
  * */
 
 const element = <h1>Hello</h1>
-ReactDOM.render(element, 'container') 
+ReactDOM.render(element, 'container')
 
 
 /**
@@ -38,13 +38,13 @@ ReactDOM.render(element, 'container')
 // 函数式组件
 function Welcome1(props) {
     return (
-        <h1>Hello, { props.name }</h1>
+        <h1>Hello, { props.name}</h1>
     )
 }
 
 // 类组件
 class Welcome2 extends React.Component {
-    render () {
+    render() {
         return <h1>...</h1>
     }
 }
@@ -74,7 +74,7 @@ function App() {
         </div>
     )
 }
- 
+
 ReactDOM.render(
     <App />,
     'container'
@@ -132,7 +132,7 @@ function GuestGreeting(props) {
 
 function Greeting(props) {
     const isLoggedIn = props.isLoggedIn
-    if(isLoggedIn) {
+    if (isLoggedIn) {
         return <UserGreeting />
     } else {
         return <GuestGreeting />
@@ -144,7 +144,7 @@ function Greeting(props) {
  */
 
 
-const numbers = [1,2,3,4,5]
+const numbers = [1, 2, 3, 4, 5]
 const listItems = numbers.map((number) => <li key={number.toString()}>{number}</li>)
 
 ReactDOM.render(
@@ -187,6 +187,85 @@ class EssayForm extends React.Component {
 }
 
 /**
- * 状态提升：如果多个组件
+ * 状态提升：如果多个组件反映相同的数据变化，我们建议将共享状态提升到最近的共同父组件。
  */
+
+
+/**
+ * 组件组合：将组件作为props的children传递到其他组件。
+ */
+
+function FancyBorder(props) {
+    return (
+        <div className={props.color}>
+            {props.children}
+        </div>
+    )
+}
+
+function FunBorder() {
+    return (
+        <h1>哈哈哈</h1>
+    )
+}
+
+function WelcomeDialog() {
+    return (
+        <FancyBorder color='red'>
+            <h1>children1</h1>
+            <h2>children2</h2>
+            <FunBorder />
+            {/* h1与h2将作为props的children传递到FancyBorder */}
+        </FancyBorder>
+    )
+}
+
+ReactDOM.render(<WelcomeDialog />, 'container')
+
+// 不使用props的children，将组建作为参数
+
+function SplitPane(props) {
+    return (
+        <div>
+            <div className='left'>
+                {props.left}
+            </div>
+            <div className='right'>
+                {props.right}
+            </div>
+        </div>
+    )
+}
+
+function Left() {
+    return (
+        <div>left</div>
+    )
+}
+
+function Right() {
+    return (
+        <div>right</div>
+    )
+}
+
+function  box() {
+    return (
+        <SplitPane left={Left()} right={Right()} />
+        // 将组件作为参数传递
+    )
+}
+
+
+/**
+ * React的设计哲学
+ * 1、将UI组件化分为组件层级：跟据单一供能原则，一个组件原则上只能负责一个功能，如果需要负责更多的功能，需要拆分为更小的组件。
+ * 2、用React创建一个静态版本：首先完成UI，在完成交互功能。小项目自上而下，大项目自下而上。
+ * 3、找到UI对应的最小state：只保留可变state的最小集合，其他数据俊由计算产生。
+ * 4、找到state的摆放位置。
+ * 5、添加反向数据流，回调。
+ */
+
+
+
 
