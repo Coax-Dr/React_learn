@@ -90,3 +90,7 @@ const FancyButton = React.forwardRef((props, ref) => { // ref只在React.forward
 
 <FancyButton  ref={Ref} /> // 将ref传递给子组件
 // 在组件外部就可以获取到组件内部的DOM
+
+/**
+ * 高阶组件：普通组件是将props转化为UI，高阶组件是将组件转化为新的组件。
+ */
