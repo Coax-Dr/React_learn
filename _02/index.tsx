@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import ReactDOM, { Link, Button } from 'react-dom';
 import React from 'react';
 
 /**
@@ -44,7 +44,7 @@ const otherComponent2 = React.lazy(() => import('./OtherComponent'))
 
 
 /**
- * context：提供了一个无需手动添加props就能在组件树间进行数据传递的方法。
+ * context：提供了一个无需手动添加props就能在组件树间进行数据传递的方法，提供了对于组件树都共享的数据。
  * 注意：context不可以随意使用，不然会增加复杂性。提供的value发生变化引起的rerender不会被shouldComponentUpdate检测到。
  * 使用：一个消费组件允许和多个提供组件关联，一个提供组件允许有多个消费组件，提供组件的value发生变化时，消费组件自动渲染。
  */
@@ -75,6 +75,27 @@ function toolbar() {
             <ThemeButton />
         </div>
     )
+}
+
+/**
+ * 可以不使用context的方式
+ */
+
+// 将组件作为参数传递：这种方式对于顶层组件知道了参数组件使用的prop的变化，中间组件并不会知道prop。但是这样会使顶层组件变得复杂。
+function Avatar(props) {
+    // ...
+}
+function PageLayout(props) {
+    // ...
+}
+function Page(props) {
+    const user = props.user
+    const userLink = ( // userLink组件
+        <Link href={user.permalink}>
+            <Avatar user={user} size={props.avatarSize}/>
+        </Link>
+    )
+    return <PageLayout userLink={userLink} /> // 将userLink组件作为参数传递。
 }
 
 /**
